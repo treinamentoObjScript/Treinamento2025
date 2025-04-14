@@ -1,0 +1,5 @@
+ROUTINE Exercicio1
+Exercicio1
+ Read "Digite o valro de X:" , y
+ Read "Digite o valor de Y: ", y
+ 
