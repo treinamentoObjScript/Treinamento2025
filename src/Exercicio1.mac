@@ -1,5 +1,13 @@
 ROUTINE Exercicio1
 Exercicio1
- Read "Digite o valro de X:" , y
- Read "Digite o valor de Y: ", y
- 
+ Read "Digite o valor de x: ", x
+ Read "Digite o valor de y: ",y 
+ Set count = 0
+  For a=x:1:y
+  {
+	  If a#2=0 Write a_" esse numero é par ", !
+	  //complentar do 1 (Item 2 )
+	  IF a#10=0   Set count = count +1 
+  }
+  W "O total de numero diviseis por 10 é "_count
+ //Import studio 
