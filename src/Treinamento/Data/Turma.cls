@@ -27,6 +27,7 @@ Method VerificaStatus(curso As %String) As %String [ Language = objectscript ]
     Return statusTurma
 }
 
+/// Imprime Turma
 ClassMethod ImprimeTurma(curso As %String) As %String [ Language = objectscript ]
 {
     
