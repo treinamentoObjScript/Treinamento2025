@@ -1,0 +1,11 @@
+ROUTINE ExercicioObj
+ExercicioObj 
+
+ Kill ^Treinamento.Data.CursoD
+ Set curso = ##class(Treinamento.Data.Curso).%New()
+ Set curso.Nome = "OBJScript"
+ Set curso.Duracao = 40
+ Set curso.Preço = 1.500
+ Set status = curso.%Save()
+
+ 
