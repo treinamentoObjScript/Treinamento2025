@@ -51,6 +51,7 @@ ClassMethod ImprimeTurma(curso As %String) As %String [ Language = objectscript 
          Set aluno = turma.Alunos.GetAt(x)
          W "Nome : "_aluno.Nome, " Matricula : "_aluno.Matricula, " Idade :"_aluno.Idade, !
     }
+    
     return
 }
 
