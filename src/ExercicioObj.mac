@@ -1,11 +1,54 @@
 ROUTINE ExercicioObj
 ExercicioObj 
 
- Kill ^Treinamento.Data.CursoD
+  Kill ^Treinamento.Data.CursoD
+  Kill ^Treinamento.Data.InstrutorD
+  Kill ^Treinamento.Data.AlunoD
+  Kill ^Treinamento.Data.TurmaD
+
  Set curso = ##class(Treinamento.Data.Curso).%New()
  Set curso.Nome = "OBJScript"
  Set curso.Duracao = 40
  Set curso.Preço = 1.500
  Set status = curso.%Save()
+ 
+ 
+ Set instrutor = ##class(Treinamento.Data.Instrutor).%New()
+ Set instrutor.Nome = "Anderson Soares"
+ Set instrutor.Matricula = "1981" 
+ Set status = instrutor.%Save()
+
+
+ Set aluno1 = ##class(Treinamento.Data.Aluno).%New()
+ Set aluno1.Nome = "Anderson Soares"
+ Set aluno1.Matricula = "1981"
+ Set aluno1.Idade = 40
+ Set status = aluno1.%Save()
+
+ Set aluno2 = ##class(Treinamento.Data.Aluno).%New()
+ Set aluno2.Nome = "Felipe Ziareski "
+ Set aluno2.Matricula = "1981"
+ Set aluno2.Idade = 15
+ Set status = aluno2.%Save()
+
+ Set aluno3 = ##class(Treinamento.Data.Aluno).%New()
+ Set aluno3.Nome = "Suzana Ziareski "
+ Set aluno3.Matricula = "1981"
+ Set aluno3.Idade = 45
+ Set status = aluno3.%Save()
+
+ 
+ Set turma = ##class(Treinamento.Data.Turma).%New()
+ Set turma.DataInicio = ""
+ Set turma.Status = "Imcompleto"
+ Set turma.Curso = curso
+ Set turma.Instrutor = instrutor
+ Do turma.Alunos.Insert(aluno1)
+ Do turma.Alunos.Insert(aluno2)
+ Do turma.Alunos.Insert(aluno3)
+  Set status = turma.%Save()
+
+
+
 
  
