@@ -1,0 +1,69 @@
+ROUTINE GeraDadosCardinalidade
+
+GeraDadosCardinalidade
+    Kill ^Treinamento.Data.UsuarioD
+    Kill ^Treinamento.Data.PerfilD
+    Kill ^Treinamento.Data.NivelD
+
+    // Criação dos Níveis
+    Set Nivel1 = ##class(Treinamento.Data.Nivel).%New()
+    Set Nivel1.Codigo = 1
+    Set Nivel1.NomeNivel = "Acesso Total"
+    Do Nivel1.%Save()
+
+    Set Nivel2 = ##class(Treinamento.Data.Nivel).%New()
+    Set Nivel2.Codigo = 2
+    Set Nivel2.NomeNivel = "Acesso Gerente"
+    Do Nivel2.%Save()
+
+    Set Nivel3 = ##class(Treinamento.Data.Nivel).%New()
+    Set Nivel3.Codigo = 3
+    Set Nivel3.NomeNivel = "Acesso Coordenador"
+    Do Nivel3.%Save()
+
+    // Criação dos Perfis e ligação com Níveis
+    Set Perfil1 = ##class(Treinamento.Data.Perfil).%New()
+    Set Perfil1.Codigo = 1
+    Set Perfil1.NomePerfil = "Diretor"
+    Set Perfil1.Nivel = Nivel1
+    Do Perfil1.%Save()
+
+    Set Perfil2 = ##class(Treinamento.Data.Perfil).%New()
+    Set Perfil2.Codigo = 2
+    Set Perfil2.NomePerfil = "Gerente"
+    Set Perfil2.Nivel = Nivel2
+    Do Perfil2.%Save()
+
+    Set Perfil3 = ##class(Treinamento.Data.Perfil).%New()
+    Set Perfil3.Codigo = 3
+    Set Perfil3.NomePerfil = "Coordenador"
+    Set Perfil3.Nivel = Nivel3
+    Do Perfil3.%Save()
+
+    // Criação dos Usuários e ligação com Perfis
+    Set Usuario1 = ##class(Treinamento.Data.Usuario).%New()
+    Set Usuario1.Nome = "Diretor"
+    Set Usuario1.SobreNome = "Silva"
+    Set Usuario1.Sexo = "Masc"
+    Set Usuario1.Email = "diretor@exemplo.com"
+    Set Usuario1.Perfil = Perfil1
+    Do Usuario1.%Save()
+
+    Set Usuario2 = ##class(Treinamento.Data.Usuario).%New()
+    Set Usuario2.Nome = "Gerente"
+    Set Usuario2.SobreNome = "Aquino"
+    Set Usuario2.Sexo = "Masc"
+    Set Usuario2.Email = "gerente@exemplo.com"
+    Set Usuario2.Perfil = Perfil2
+    Do Usuario2.%Save()
+
+    Set Usuario3 = ##class(Treinamento.Data.Usuario).%New()
+    Set Usuario3.Nome = "Coordenador"
+    Set Usuario3.SobreNome = "Soares"
+    Set Usuario3.Sexo = "Masc"
+    Set Usuario3.Email = "coordenador@exemplo.com"
+    Set Usuario3.Perfil = Perfil3
+    Do Usuario3.%Save()
+
+    Write !,"Dados gerados com sucesso!",!
+    Quit
