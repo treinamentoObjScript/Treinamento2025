@@ -11,7 +11,7 @@ Property Fim As %String(MAXLEN = 200) [ SqlColumnNumber = 5 ];
 
 Property Status As %Boolean [ SqlColumnNumber = 6 ];
 
-Property StatusProcesso As %String [ SqlColumnNumber = 7 ];
+Property StatusProcesso As %String(MAXLEN = "") [ SqlColumnNumber = 7 ];
 
 Property ListaLog As list Of Treinamento.Data.VO.LogMensagem;
 
@@ -42,7 +42,7 @@ ClassMethod CriarEntrada(pMetodo As %String, pClasse As %String) As Treinamento.
     return entry
 }
 
-ClassMethod Finalizar(pIdLog As %Integer, pStatusProcesso As %String, pstatusCode As %String) As Treinamento.Data.LogMensagem
+ClassMethod Finalizar(pIdLog As %Integer, pStatusProcesso As %String = "", pstatusCode As %String) As Treinamento.Data.LogMensagem
 {
     Set tSC = $$$OK
     try 
@@ -108,6 +108,55 @@ ClassMethod ConsultaLog(pStatus As %Boolean, pDataInicio As %String = "", pDataF
         
     }
     return entry
+}
+
+ClassMethod ConsultaLogBasico(pStatus As %Boolean, pDataInicio As %String = "", pDataFim As %String) As Treinamento.Data.VO.LogMensagem
+{
+   
+    #Dim LogMensagem  AS LogMensagem = ..%New()    
+    Set LogMensagem = ..ConsultaLog(pStatus,pDataInicio,pDataFim)
+    W "A quantidade de logs encontrado foi ... : "_LogMensagem.ListaLog.Count()
+}
+
+ClassMethod ConsultaLogPaginacao(pStatus As %Boolean, pLastId As %Integer, pPageSize As %Integer, pDataFim As %String) As Treinamento.Data.VO.LogMensagem
+{
+   
+        try 
+        {   
+            Set tSC = $$$OK
+            Set SQL  = "SELECT TOP "_pPageSize_"* FROM Treinamento_Data.LogMensagem "
+            Set SQL = SQL_"WHERE Status = "_pStatus 
+            Set SQL = SQL_ " AND Fim <= '"_pDataFim_"'"
+            Set SQL = SQL_ "AND ID > "_pLastId
+
+            Set resultSet = ##class(%ResultSet).%New()
+            Do resultSet.Prepare(SQL)
+            Set tSC = resultSet.Execute()
+            Set count = 0 
+                While(resultSet.Next())
+                {
+                    Set count = count +1
+                    Write " ID : ", resultSet.%Get("ID") , " | Metodo : ", resultSet.%Get("Metodo"), " | Classe : ", resultSet.%Get("Classe"), "| Inicio : " , resultSet.%Get("Inicio"), !
+                    Write "Fim : ", resultSet.%Get("Fim"), "| Status : ", resultSet.%Get("Status"), "| StatusProcesso : ", resultSet.%Get("StatusProcesso") , ! 
+                }
+                If count > 0
+                {
+                    W "Total de log encontrados por pagina ", count, ! 
+                }
+                Else
+                {
+                W "Nenhum   log encontrados para essa pesquisa"
+                }
+
+        }
+        Catch(exception)
+        {
+            Set tSC           = exception.AsStatus()
+            Set erroMensagem  = $SYSTEM.Status.GetOneErrorText(tSC)
+            Throw exception
+            
+        }
+        Quit
 }
 
 Storage Default

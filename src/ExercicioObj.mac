@@ -48,7 +48,7 @@ ExercicioObj
  Do turma.Alunos.Insert(aluno3)
   Set status = turma.%Save()
  Set statusTurma = turma.VerificaStatus("OBJScript")
- Do ##class(Treinamento.Data.Turma).ImprimeTurma("OBJScript")
+  Do ##class(Treinamento.Data.Turma).ImprimeTurma("OBJScript")
  
 
 
